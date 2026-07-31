@@ -1,0 +1,28 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended",
+    "helpers:pinGitHubActionDigests",
+    ":dependencyDashboard",
+    ":semanticCommits"
+  ],
+  "timezone": "Europe/London",
+  "schedule": ["before 6am on monday"],
+  "minimumReleaseAge": "7 days",
+  "labels": ["dependencies", "renovate"],
+  "prConcurrentLimit": 10,
+  "prHourlyLimit": 0,
+  "forkProcessing": "enabled",
+  "packageRules": [
+    {
+      "description": "Consolidate every non-major update (incl. Action digests) into one weekly PR.",
+      "matchUpdateTypes": ["minor", "patch", "pin", "digest"],
+      "groupName": "all non-major dependencies"
+    },
+    {
+      "description": "Major updates stay as individual PRs behind Dependency Dashboard approval so breaking changes are reviewed in isolation.",
+      "matchUpdateTypes": ["major"],
+      "dependencyDashboardApproval": true
+    }
+  ]
+}
